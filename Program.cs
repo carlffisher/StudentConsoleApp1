@@ -1,38 +1,38 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 Student aStudent = new Student("Joe Bloggs", 'C', 3);
-School thisSchool = new School();
+School aSchool = new School();
 
-aStudent.GetSecretNicknameFromWithinStudentClass();
+aStudent.DisplaySecretNicknameFromWithinStudentClass();
 
-thisSchool.GetSchoolStudentDetails();
-thisSchool.UpgradeStudentGrade();
-thisSchool.DowngradeStudentGrade();
+aSchool.GetSchoolStudentDetails();
+aSchool.UpgradeStudentGrade();
+aSchool.DowngradeStudentGrade();
 
 public class Student
 {
-    public static string? StudentName { get; set; }
-    public static char StudentGrade { get; set; }
-    public static int StudentGroup { get; set; }
-    internal static string? secretNickname { private get; set; }
+    public  string StudentName { get; set; }
+    public  char StudentGrade { get; set; }
+    public  int StudentGroup { get; set; }
+    private string _secretNickname { get; set; }
 
     public Student(string name, char grade, int group)
     {
         StudentName = name;
         StudentGrade = grade;
         StudentGroup = group;
-        secretNickname = "MySecretNickname"; 
+        _secretNickname = "MySecretNickname"; 
     }
 
-    public void GetSecretNicknameFromWithinStudentClass()
+    public void DisplaySecretNicknameFromWithinStudentClass()
     {
-       Console.WriteLine("StudentSecretNicknameFromWithinStudentClass : {0}", secretNickname);
+       Console.WriteLine("StudentSecretNicknameFromWithinStudentClass : {0}", _secretNickname);
     }
 }
 
 public class School
 {
-    private static string schoolStudentSecretNickname = "Access Denied";
+    private string schoolStudentSecretNickname = " ";
 
     Student bStudent = new Student("John Smith", 'B', 4);
 
@@ -43,35 +43,36 @@ public class School
 
     public void UpgradeStudentGrade()
     {
-        Console.WriteLine("School Student Grade before Increment : {0}", Student.StudentGrade);
+        Console.WriteLine("School Student Grade before Increment : {0}", bStudent.StudentGrade);
 
-        if (Student.StudentGrade < 'E')
+        if (bStudent.StudentGrade < 'E')
         {
-            Student.StudentGrade++;
+            bStudent.StudentGrade++;
         }
      
-        Console.WriteLine("School Student Grade after Increment : {0}", Student.StudentGrade);
+        Console.WriteLine("School Student Grade after Increment : {0}", bStudent.StudentGrade);
     }
 
     public void DowngradeStudentGrade()
     {
-        Console.WriteLine("School Student Grade before Decrement : {0}", Student.StudentGrade);
+        Console.WriteLine("School Student Grade before Decrement : {0}", bStudent.StudentGrade);
 
-        if (Student.StudentGrade > 'A')
+        if (bStudent.StudentGrade > 'A')
         {
-            Student.StudentGrade--;
+            bStudent.StudentGrade--;
         }
 
-        Console.WriteLine("School Student Grade after Decrement : {0}", Student.StudentGrade);
+        Console.WriteLine("School Student Grade after Decrement : {0}", bStudent.StudentGrade);
     }
 
     public void GetSchoolStudentDetails()
     {
-        // schoolStudentSecretNickname = Student.secretNickname;
-        // Compiler won't allow access to Student.secretNickname because of its protection level
-        Console.WriteLine("SchoolStudentName : {0}", Student.StudentName); // can't get compiler to access bStudent!
-        Console.WriteLine("SchoolStudentGrade : {0}", Student.StudentGrade);
+        // Compiler won't allow access to bStudent.secretNickname because of its protection level
+        Console.WriteLine("SchoolStudentName : {0}", bStudent.StudentName);
+        Console.WriteLine("SchoolStudentGrade : {0}", bStudent.StudentGrade);
+        // schoolStudentSecretNickname = bStudent._secretNickname;
         Console.WriteLine("StudentSecretNicknameFromWithinSchoolClass : {0}", schoolStudentSecretNickname);
+
     }
 }
 
